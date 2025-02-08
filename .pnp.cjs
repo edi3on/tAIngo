@@ -39,8 +39,8 @@ const RAW_RUNTIME_STATE =
           ["@nomicfoundation/ignition-core", "npm:0.15.9"],\
           ["@typechain/ethers-v6", "virtual:a3cfef67538786ad9e353c622ec8cc44f22b2e0fd9fa638680534507e867e9c62db8c47997125c4585b8bcf0101b641b65180aa3d8d942ffb2b516ad58817c20#npm:0.5.1"],\
           ["@typechain/hardhat", "virtual:a3cfef67538786ad9e353c622ec8cc44f22b2e0fd9fa638680534507e867e9c62db8c47997125c4585b8bcf0101b641b65180aa3d8d942ffb2b516ad58817c20#npm:9.1.0"],\
-          ["@types/chai", "npm:4.3.20"],\
-          ["@types/mocha", "npm:9.1.1"],\
+          ["@types/chai", "npm:5.0.1"],\
+          ["@types/mocha", "npm:10.0.10"],\
           ["@types/node", "npm:22.13.1"],\
           ["chai", "npm:4.5.0"],\
           ["dotenv", "npm:16.4.7"],\
@@ -898,7 +898,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@nomicfoundation/hardhat-chai-matchers", "virtual:a3cfef67538786ad9e353c622ec8cc44f22b2e0fd9fa638680534507e867e9c62db8c47997125c4585b8bcf0101b641b65180aa3d8d942ffb2b516ad58817c20#npm:2.0.8"],\
           ["@nomicfoundation/hardhat-ethers", "virtual:a3cfef67538786ad9e353c622ec8cc44f22b2e0fd9fa638680534507e867e9c62db8c47997125c4585b8bcf0101b641b65180aa3d8d942ffb2b516ad58817c20#npm:3.0.8"],\
-          ["@types/chai", "npm:4.3.20"],\
+          ["@types/chai", "npm:5.0.1"],\
           ["@types/chai-as-promised", "npm:7.1.8"],\
           ["@types/ethers", null],\
           ["@types/hardhat", null],\
@@ -1064,11 +1064,11 @@ const RAW_RUNTIME_STATE =
           ["@nomicfoundation/hardhat-verify", "virtual:a3cfef67538786ad9e353c622ec8cc44f22b2e0fd9fa638680534507e867e9c62db8c47997125c4585b8bcf0101b641b65180aa3d8d942ffb2b516ad58817c20#npm:2.0.12"],\
           ["@typechain/ethers-v6", "virtual:a3cfef67538786ad9e353c622ec8cc44f22b2e0fd9fa638680534507e867e9c62db8c47997125c4585b8bcf0101b641b65180aa3d8d942ffb2b516ad58817c20#npm:0.5.1"],\
           ["@typechain/hardhat", "virtual:a3cfef67538786ad9e353c622ec8cc44f22b2e0fd9fa638680534507e867e9c62db8c47997125c4585b8bcf0101b641b65180aa3d8d942ffb2b516ad58817c20#npm:9.1.0"],\
-          ["@types/chai", "npm:4.3.20"],\
+          ["@types/chai", "npm:5.0.1"],\
           ["@types/ethers", null],\
           ["@types/hardhat", null],\
           ["@types/hardhat-gas-reporter", null],\
-          ["@types/mocha", "npm:9.1.1"],\
+          ["@types/mocha", "npm:10.0.10"],\
           ["@types/node", "npm:22.13.1"],\
           ["@types/nomicfoundation__hardhat-chai-matchers", null],\
           ["@types/nomicfoundation__hardhat-ethers", null],\
@@ -1577,13 +1577,6 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@types/chai", [\
-      ["npm:4.3.20", {\
-        "packageLocation": "../../../.yarn/berry/cache/@types-chai-npm-4.3.20-468371f41f-10c0.zip/node_modules/@types/chai/",\
-        "packageDependencies": [\
-          ["@types/chai", "npm:4.3.20"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
       ["npm:5.0.1", {\
         "packageLocation": "../../../.yarn/berry/cache/@types-chai-npm-5.0.1-ff3f709b40-10c0.zip/node_modules/@types/chai/",\
         "packageDependencies": [\
@@ -1662,10 +1655,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@types/mocha", [\
-      ["npm:9.1.1", {\
-        "packageLocation": "../../../.yarn/berry/cache/@types-mocha-npm-9.1.1-9646576ed0-10c0.zip/node_modules/@types/mocha/",\
+      ["npm:10.0.10", {\
+        "packageLocation": "../../../.yarn/berry/cache/@types-mocha-npm-10.0.10-1e025e7c6e-10c0.zip/node_modules/@types/mocha/",\
         "packageDependencies": [\
-          ["@types/mocha", "npm:9.1.1"]\
+          ["@types/mocha", "npm:10.0.10"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -2395,7 +2388,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/__virtual__/chai-as-promised-virtual-de18530cbe/4/.yarn/berry/cache/chai-as-promised-npm-7.1.2-ee0dcf9f07-10c0.zip/node_modules/chai-as-promised/",\
         "packageDependencies": [\
           ["chai-as-promised", "virtual:78dacd883e7092bdaf8fd4a9a9fece559c0107759ef7bf33f460971ea95f7b2f0bb9fd6926959d035081e60809821d34796ab389414de4a56f954bf0323ef91b#npm:7.1.2"],\
-          ["@types/chai", "npm:4.3.20"],\
+          ["@types/chai", "npm:5.0.1"],\
           ["chai", "npm:4.5.0"],\
           ["check-error", "npm:1.0.3"]\
         ],\
@@ -6200,8 +6193,8 @@ const RAW_RUNTIME_STATE =
           ["@nomicfoundation/ignition-core", "npm:0.15.9"],\
           ["@typechain/ethers-v6", "virtual:a3cfef67538786ad9e353c622ec8cc44f22b2e0fd9fa638680534507e867e9c62db8c47997125c4585b8bcf0101b641b65180aa3d8d942ffb2b516ad58817c20#npm:0.5.1"],\
           ["@typechain/hardhat", "virtual:a3cfef67538786ad9e353c622ec8cc44f22b2e0fd9fa638680534507e867e9c62db8c47997125c4585b8bcf0101b641b65180aa3d8d942ffb2b516ad58817c20#npm:9.1.0"],\
-          ["@types/chai", "npm:4.3.20"],\
-          ["@types/mocha", "npm:9.1.1"],\
+          ["@types/chai", "npm:5.0.1"],\
+          ["@types/mocha", "npm:10.0.10"],\
           ["@types/node", "npm:22.13.1"],\
           ["chai", "npm:4.5.0"],\
           ["dotenv", "npm:16.4.7"],\
