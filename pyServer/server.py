@@ -15,7 +15,7 @@ import uvicorn
 from operator import itemgetter
 import subprocess
 from urllib.parse import unquote, quote
-ALCHEMY_API_KEY = ''
+ALCHEMY_API_KEY = 'jvVdUDTd6b4h3ZSM-_bdsa77NMFqdqWZ'
 
 app = FastAPI()
 
@@ -48,7 +48,7 @@ def get_nfts(address: str):
             })
 
     # Sort NFTs by floor price in descending order and get top 5
-    top_5_nfts = sorted(nfts_with_prices, key=itemgetter('floor_price'), reverse=True)[:8]
+    top_5_nfts = sorted(nfts_with_prices, key=itemgetter('floor_price'), reverse=True)[:5]
     
     return {"data": top_5_nfts}
 
