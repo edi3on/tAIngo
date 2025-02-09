@@ -61,4 +61,4 @@ contract PetTaming {
         require(userAttempts[_userId].length > 0, "No attempts found for this user");
         return userAttempts[_userId][userAttempts[_userId].length - 1];
     }
-} 
+}

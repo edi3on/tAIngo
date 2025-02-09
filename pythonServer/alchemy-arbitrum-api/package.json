@@ -1,9 +1,0 @@
-{
-  "name": "alchemy-arbitrum-api",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "dependencies": {
-    "alchemy-sdk": "^3.5.2"
-  }
-}
