@@ -1,0 +1,19 @@
+{
+  "contracts": {
+    "PetTaming": "./contracts/PetTaming.cdc"
+  },
+  "networks": {
+    "testnet": "access.testnet.nodes.onflow.org:9000"
+  },
+  "accounts": {
+    "testnet-account": {
+      "address": "${FLOW_ADDRESS}",
+      "key": "${FLOW_PRIVATE_KEY}"
+    }
+  },
+  "deployments": {
+    "testnet": {
+      "testnet-account": ["PetTaming"]
+    }
+  }
+} 

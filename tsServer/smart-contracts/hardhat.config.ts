@@ -1,31 +1,39 @@
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 import * as dotenv from "dotenv";
-import { resolve } from "path";
 
-// Configure dotenv to look for .env file in parent directory
-dotenv.config({ path: resolve(__dirname, "../../.env") });
-
-// Add these debug logs temporarily
-console.log("Environment check:");
-console.log("RPC URL length:", process.env.ARBITRUM_SEPOLIA_RPC?.length || 0);
-console.log("Private key exists:", !!process.env.PRIVATE_KEY);
-console.log("Private key length:", process.env.PRIVATE_KEY?.length || 0);
+dotenv.config({ path: "../../.env" });
 
 const config: HardhatUserConfig = {
   solidity: "0.8.28",
   networks: {
     arbitrumSepolia: {
-      url: process.env.ARBITRUM_SEPOLIA_RPC || "https://sepolia-rollup.arbitrum.io/rpc",
-      accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
-      chainId: 421614
+      url: process.env.ARBITRUM_SEPOLIA_RPC || "",
+      accounts: [process.env.PRIVATE_KEY || ""]
     },
+    flowEvm: {
+      url: process.env.FLOW_EVM_RPC || "https://testnet.evm.nodes.onflow.org",
+      accounts: [process.env.PRIVATE_KEY || ""],
+      chainId: 545,
+      gasPrice: 1000000000
+    }
   },
   etherscan: {
     apiKey: {
-      arbitrumSepolia: process.env.ARBISCAN_API_KEY || ''
-    }
-  },
+      arbitrumSepolia: process.env.ARBISCAN_API_KEY || "",
+      flowEvm: "any" // Flow EVM doesn't require an API key for verification
+    },
+    customChains: [
+      {
+        network: "flowEvm",
+        chainId: 545,
+        urls: {
+          apiURL: "https://testnet.evm.nodes.onflow.org/api",
+          browserURL: "https://evm-testnet.flowscan.io"
+        }
+      }
+    ]
+  }
 };
 
-export default config; 
+export default config;

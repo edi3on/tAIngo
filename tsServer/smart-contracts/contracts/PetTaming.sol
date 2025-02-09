@@ -3,12 +3,22 @@ pragma solidity ^0.8.28;
 
 contract PetTaming {
     struct TamingAttempt {
-        uint256 userId;          // User's identifier
-        uint256 targetPetId;     // ID of the pet being tamed
-        uint256 successRate;     // Success rate (0-100)
-        uint256[] usedNftIds;    // Array of NFT IDs used in taming attempt
-        bool isSuccessful;       // Whether the taming was successful
-        uint256 timestamp;       // When the attempt was made
+        uint256 userId;          
+        uint256 targetPetId;     
+        uint256 successRate;     
+        uint256[] usedNftIds;    // This will be displayed as an array
+        bool isSuccessful;       
+        uint256 timestamp;       
+    }
+
+    // Add this new struct for better readability
+    struct ReadableTamingAttempt {
+        uint256 userId;
+        uint256 targetPetId;
+        uint256 successRate;
+        uint256[] nftList;  // Explicitly named array
+        bool isSuccessful;
+        uint256 timestamp;
     }
 
     // Mapping from user to their taming attempts
@@ -51,14 +61,36 @@ contract PetTaming {
         );
     }
 
-    // Get all taming attempts for a user
-    function getUserAttempts(uint256 _userId) public view returns (TamingAttempt[] memory) {
-        return userAttempts[_userId];
+    // Modified to return the readable struct
+    function getLatestAttempt(uint256 _userId) public view returns (ReadableTamingAttempt memory) {
+        require(userAttempts[_userId].length > 0, "No attempts found for this user");
+        TamingAttempt memory latest = userAttempts[_userId][userAttempts[_userId].length - 1];
+        
+        return ReadableTamingAttempt({
+            userId: latest.userId,
+            targetPetId: latest.targetPetId,
+            successRate: latest.successRate,
+            nftList: latest.usedNftIds,  // This will be displayed as a clear array
+            isSuccessful: latest.isSuccessful,
+            timestamp: latest.timestamp
+        });
     }
 
-    // Get the latest taming attempt for a user
-    function getLatestAttempt(uint256 _userId) public view returns (TamingAttempt memory) {
-        require(userAttempts[_userId].length > 0, "No attempts found for this user");
-        return userAttempts[_userId][userAttempts[_userId].length - 1];
+    function getUserAttempts(uint256 _userId) public view returns (ReadableTamingAttempt[] memory) {
+        TamingAttempt[] memory attempts = userAttempts[_userId];
+        ReadableTamingAttempt[] memory readableAttempts = new ReadableTamingAttempt[](attempts.length);
+        
+        for(uint i = 0; i < attempts.length; i++) {
+            readableAttempts[i] = ReadableTamingAttempt({
+                userId: attempts[i].userId,
+                targetPetId: attempts[i].targetPetId,
+                successRate: attempts[i].successRate,
+                nftList: attempts[i].usedNftIds,
+                isSuccessful: attempts[i].isSuccessful,
+                timestamp: attempts[i].timestamp
+            });
+        }
+        
+        return readableAttempts;
     }
 }

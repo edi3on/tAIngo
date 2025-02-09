@@ -1,0 +1,21 @@
+{
+  "scripts": {
+    "deployFlow": "ts-node smart-contracts/scripts/deployFlow.ts",
+    "recordFlow": "ts-node smart-contracts/scripts/recordFlow.ts",
+    "deployArbitrum": "cd smart-contracts && yarn deployArbitrum",
+    "recordArbitrum": "cd smart-contracts && yarn recordArbitrum"
+  },
+  "dependencies": {
+    "@onflow/fcl": "^1.13.4",
+    "@onflow/sdk": "^1.5.6",
+    "@onflow/types": "^1.4.1",
+    "go": "^3.0.1"
+  },
+  "devDependencies": {
+    "@typechain/ethers-v6": "^0.5.1",
+    "@typechain/hardhat": "^9.1.0",
+    "@types/node": "^22.13.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
+}
