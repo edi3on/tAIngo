@@ -23,27 +23,27 @@ import type {
 } from "./common";
 
 export declare namespace PetTaming {
-  export type TamingAttemptStruct = {
+  export type ReadableTamingAttemptStruct = {
     userId: BigNumberish;
     targetPetId: BigNumberish;
     successRate: BigNumberish;
-    usedNftIds: BigNumberish[];
+    nftList: BigNumberish[];
     isSuccessful: boolean;
     timestamp: BigNumberish;
   };
 
-  export type TamingAttemptStructOutput = [
+  export type ReadableTamingAttemptStructOutput = [
     userId: bigint,
     targetPetId: bigint,
     successRate: bigint,
-    usedNftIds: bigint[],
+    nftList: bigint[],
     isSuccessful: boolean,
     timestamp: bigint
   ] & {
     userId: bigint;
     targetPetId: bigint;
     successRate: bigint;
-    usedNftIds: bigint[];
+    nftList: bigint[];
     isSuccessful: boolean;
     timestamp: bigint;
   };
@@ -168,13 +168,13 @@ export interface PetTaming extends BaseContract {
 
   getLatestAttempt: TypedContractMethod<
     [_userId: BigNumberish],
-    [PetTaming.TamingAttemptStructOutput],
+    [PetTaming.ReadableTamingAttemptStructOutput],
     "view"
   >;
 
   getUserAttempts: TypedContractMethod<
     [_userId: BigNumberish],
-    [PetTaming.TamingAttemptStructOutput[]],
+    [PetTaming.ReadableTamingAttemptStructOutput[]],
     "view"
   >;
 
@@ -212,14 +212,14 @@ export interface PetTaming extends BaseContract {
     nameOrSignature: "getLatestAttempt"
   ): TypedContractMethod<
     [_userId: BigNumberish],
-    [PetTaming.TamingAttemptStructOutput],
+    [PetTaming.ReadableTamingAttemptStructOutput],
     "view"
   >;
   getFunction(
     nameOrSignature: "getUserAttempts"
   ): TypedContractMethod<
     [_userId: BigNumberish],
-    [PetTaming.TamingAttemptStructOutput[]],
+    [PetTaming.ReadableTamingAttemptStructOutput[]],
     "view"
   >;
   getFunction(
