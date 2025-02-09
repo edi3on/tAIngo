@@ -15,7 +15,7 @@ import uvicorn
 from operator import itemgetter
 import subprocess
 from urllib.parse import unquote, quote
-ALCHEMY_API_KEY = 'jvVdUDTd6b4h3ZSM-_bdsa77NMFqdqWZ'
+ALCHEMY_API_KEY = ''
 
 app = FastAPI()
 
