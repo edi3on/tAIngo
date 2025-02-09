@@ -1,5 +1,4 @@
 import { ethers } from "hardhat";
-import { JsonRpcProvider } from "ethers";
 import { run } from "hardhat";
 
 async function main() {
@@ -17,11 +16,13 @@ async function main() {
   const address = await petTaming.getAddress();
   console.log("PetTaming contract deployed to:", address);
 
-  // Get transaction receipt
-  const provider = new JsonRpcProvider(process.env.ARBITRUM_SEPOLIA_RPC);
-  const receipt = await provider.getTransactionReceipt(petTaming.deploymentTransaction()?.hash || "");
-  
-  console.log("Transaction hash:", receipt?.hash);
+  // Get transaction hash directly from the deployment transaction
+  const txHash = petTaming.deploymentTransaction()?.hash;
+  console.log("Transaction hash:", txHash);
+
+  // Wait a few seconds before verification to ensure the contract is deployed
+  console.log("Waiting for contract to be propagated...");
+  await new Promise(resolve => setTimeout(resolve, 20000)); // 20 seconds delay
 
   // Verify the contract
   console.log("Verifying contract...");

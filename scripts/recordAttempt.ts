@@ -15,11 +15,11 @@ async function main() {
     const petTaming = PetTaming.attach(CONTRACT_ADDRESS);
 
     // Example taming attempt data
-    const userId = 1;              // User's ID
-    const targetPetId = 123;       // ID of the pet they're trying to tame
-    const successRate = 75;        // Success rate (0-100)
-    const usedNftIds = [456, 789]; // IDs of NFTs used in taming attempt
-    const isSuccessful = true;     // Whether the taming was successful
+    const userId = 100;              // User's ID
+    const targetPetId = 20;       // ID of the pet they're trying to tame
+    const successRate = 30;        // Success rate (0-100)
+    const usedNftIds = [200, 120]; // IDs of NFTs used in taming attempt
+    const isSuccessful = false;     // Whether the taming was successful
 
     console.log(`Recording taming attempt for user ${userId}...`);
     console.log("Contract address:", CONTRACT_ADDRESS);
