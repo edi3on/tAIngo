@@ -24,28 +24,6 @@ app = FastAPI()
 def read_root():
     return {"Hello": "World"}
 
-@app.get("/v1/getnfts/{address}")
-def get_nfts(address: str):
-    url = f"https://eth-mainnet.g.alchemy.com/nft/v3/{ALCHEMY_API_KEY}/getNFTsForOwner?owner={address}&withMetadata=true&pageSize=100"
-    headers = {"accept": "application/json"}
-    response = requests.get(url, headers=headers)
-    return response.json()
-
-@app.get("/v2/getnfts/{address}")
-def get_nfts(address: str):
-    url = f"https://eth-mainnet.g.alchemy.com/v2/{ALCHEMY_API_KEY}/getNFTs/?owner={address}&excludeFilters[]=SPAM"
-    response = requests.get(url)
-    filtered_response = []
-    for nft in response.json()['ownedNfts']:
-        filtered_response.append({
-            "contractMetadata": nft["contractMetadata"],
-            "metadata": nft.get("metadata", {})
-        })
-    
-                
-
-    return filtered_response
-
 
 @app.get("/v3/getnfts/{address}")
 def get_nfts(address: str):
@@ -70,20 +48,7 @@ def get_nfts(address: str):
             })
 
     # Sort NFTs by floor price in descending order and get top 5
-    top_5_nfts = sorted(nfts_with_prices, key=itemgetter('floor_price'), reverse=True)[:8] #change to whatever number you need
-
-    #get rarity
-    # for nft in top_5_nfts:
-    #     contract_address = nft["contract"]["address"]
-    #     token_id = nft["tokenId"]
-    #     try: 
-    #         rarity = requests.get(f"https://eth-mainnet.g.alchemy.com/nft/v3/{ALCHEMY_API_KEY}/computeRarity?contractAddress={contract_address}&tokenId={token_id}")
-    #         print(rarity.json())
-    #         nft["rarity"] = rarity.json()
-    #     except requests.RequestException as e:
-    #         print(f"Error fetching rarity for {contract_address}, token {token_id}: {str(e)}")
-    #         nft["rarity"] = {}
-    #     time.sleep(2)
+    top_5_nfts = sorted(nfts_with_prices, key=itemgetter('floor_price'), reverse=True)[:8]
     
     return {"data": top_5_nfts}
 
