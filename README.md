@@ -33,3 +33,23 @@ A FastAPI server that:
 ## Quick Start
 
 1. Set up the smart contract:
+cd tsServer/smart-contracts
+yarn install
+cp .env.example .env
+
+##Fill in your .env values
+yarn deploy arbitrumSepolia  
+
+2. Start the Python server:
+cd pyServer
+pip install -r requirements.txt
+python server.py
+
+
+## Prerequisites
+- Node.js & Yarn
+- Python 3.7+
+- Ethereum wallet with testnet tokens
+- Alchemy API key
+
+See individual component READMEs for detailed setup instructions.
