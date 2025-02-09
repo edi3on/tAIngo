@@ -1,4 +1,4 @@
-# tAIngo
+# tAIngo: Digital NFT pet taming
 
 A blockchain-based backend system for an NFT taming game. This project consists of two main components:
 
