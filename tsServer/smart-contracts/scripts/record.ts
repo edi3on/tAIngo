@@ -13,10 +13,30 @@ async function main() {
   const result = dotenv.config({ path: envPath, override: true });
   console.log("Loading .env from:", envPath);
   
-  // Debug log the loaded environment variables
+  // Get arguments from environment variables
+  const user = process.env.TAMING_USER;
+  const nft = process.env.TAMING_NFT;
+  const tameScale = parseInt(process.env.TAMING_SCALE || "");
+
+  if (!user || !nft || isNaN(tameScale)) {
+    console.error("\nError: Missing environment variables");
+    console.log("\nRequired environment variables:");
+    console.log("TAMING_USER - The user identifier");
+    console.log("TAMING_NFT - The NFT identifier");
+    console.log("TAMING_SCALE - A number between 0 and 100");
+    console.log("\nExample:");
+    console.log('TAMING_USER="player123" TAMING_NFT="dragon#123" TAMING_SCALE=75 yarn record arbitrumSepolia');
+    process.exit(1);
+  }
+
+  // Validate tameScale
+  if (tameScale < 0 || tameScale > 100) {
+    console.error("\nError: TAMING_SCALE must be a number between 0 and 100");
+    process.exit(1);
+  }
+
   console.log("\nLoaded CONTRACT_ADDRESS:", process.env.CONTRACT_ADDRESS);
   
-  // Validate contract address
   if (!process.env.CONTRACT_ADDRESS?.startsWith('0x')) {
     throw new Error(`Invalid contract address: ${process.env.CONTRACT_ADDRESS}. Must start with 0x and be 42 characters long.`);
   }
@@ -25,9 +45,9 @@ async function main() {
   console.log("\nAttempting to interact with contract at:", contractAddress);
 
   const tamingData = {
-    user: "player123",
-    nft: "dragon#123",
-    tameScale: 75  // represents 0.75 or 75%
+    user,
+    nft,
+    tameScale
   };
 
   console.log("\nRecording new taming attempt with data:", tamingData);
@@ -76,10 +96,6 @@ async function main() {
     console.error("\nTransaction failed:", error);
     console.log("\nDebug info:");
     console.log("Contract address from env:", process.env.CONTRACT_ADDRESS);
-    console.log("\nPlease try these steps:");
-    console.log("1. Redeploy the contract: yarn deploy arbitrumSepolia");
-    console.log("2. Update your .env with the new contract address");
-    console.log("3. Try recording again");
     throw error;
   }
 }
