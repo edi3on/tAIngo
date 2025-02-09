@@ -12,7 +12,7 @@ async function main() {
   
   // Log the account balance
   const balance = await deployer.provider.getBalance(deployer.address);
-  console.log("Account balance:", balance.toString());
+  console.log("Account balance:", ethers.formatEther(balance), "ETH");
 
   console.log("Getting contract factory...");
   const PetTaming = await ethers.getContractFactory("PetTaming");
@@ -27,13 +27,13 @@ async function main() {
   console.log("PetTaming contract deployed to:", contractAddress);
   console.log("Transaction hash:", contract.deploymentTransaction()?.hash);
   
-  console.log("\nPlease add this contract address to your .env file as CONTRACT_ADDRESS=", contractAddress);
+  console.log("\nPlease update your .env file with:");
+  console.log(`CONTRACT_ADDRESS=${contractAddress}`);
 
   // Only attempt verification on networks that support it
   const networkName = process.env.HARDHAT_NETWORK;
   if (networkName === 'arbitrumSepolia') {
-    console.log("\nWaiting for contract to be propagated before verification...");
-    // Wait for 6 blocks
+    console.log("\nWaiting before verification...");
     await new Promise(resolve => setTimeout(resolve, 15000));
 
     console.log("Verifying contract...");

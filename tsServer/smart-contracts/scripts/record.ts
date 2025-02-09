@@ -25,11 +25,9 @@ async function main() {
   console.log("\nAttempting to interact with contract at:", contractAddress);
 
   const tamingData = {
-    userId: 3,
-    targetPetId: 1,
-    successRate: 70,
-    usedNftIds: [10],
-    isSuccessful: false
+    user: "player123",
+    nft: "dragon#123",
+    tameScale: 75  // represents 0.75 or 75%
   };
 
   console.log("\nRecording new taming attempt with data:", tamingData);
@@ -41,12 +39,24 @@ async function main() {
     const PetTaming = await ethers.getContractFactory("PetTaming");
     const contract = PetTaming.attach(contractAddress);
 
+    // First, try to call a view function to verify the contract exists and is correct
+    try {
+      await contract.getAllAttempts();
+    } catch (error) {
+      console.error("\nFailed to verify contract. This might be the wrong contract address or an old version.");
+      console.log("Please redeploy the contract using: yarn deploy arbitrumSepolia");
+      throw error;
+    }
+
+    console.log("Contract verified, sending transaction...");
+
     const tx = await contract.recordTamingAttempt(
-      tamingData.userId,
-      tamingData.targetPetId,
-      tamingData.successRate,
-      tamingData.usedNftIds,
-      tamingData.isSuccessful
+      tamingData.user,
+      tamingData.nft,
+      tamingData.tameScale,
+      {
+        gasLimit: 500000  // Set explicit gas limit
+      }
     );
 
     console.log("Transaction hash:", tx.hash);
@@ -54,10 +64,22 @@ async function main() {
     await tx.wait();
     console.log("Transaction confirmed!");
 
+    // Get the latest attempt to verify
+    const latest = await contract.getLatestAttempt();
+    console.log("\nLatest recorded attempt:", {
+      user: latest.user,
+      nft: latest.nft,
+      tameScale: latest.tameScale.toString() + "%"
+    });
+
   } catch (error) {
     console.error("\nTransaction failed:", error);
     console.log("\nDebug info:");
     console.log("Contract address from env:", process.env.CONTRACT_ADDRESS);
+    console.log("\nPlease try these steps:");
+    console.log("1. Redeploy the contract: yarn deploy arbitrumSepolia");
+    console.log("2. Update your .env with the new contract address");
+    console.log("3. Try recording again");
     throw error;
   }
 }

@@ -23,99 +23,69 @@ import type {
 } from "./common";
 
 export declare namespace PetTaming {
-  export type ReadableTamingAttemptStruct = {
-    userId: BigNumberish;
-    targetPetId: BigNumberish;
-    successRate: BigNumberish;
-    nftList: BigNumberish[];
-    isSuccessful: boolean;
-    timestamp: BigNumberish;
+  export type TamingAttemptStruct = {
+    user: string;
+    nft: string;
+    tameScale: BigNumberish;
   };
 
-  export type ReadableTamingAttemptStructOutput = [
-    userId: bigint,
-    targetPetId: bigint,
-    successRate: bigint,
-    nftList: bigint[],
-    isSuccessful: boolean,
-    timestamp: bigint
-  ] & {
-    userId: bigint;
-    targetPetId: bigint;
-    successRate: bigint;
-    nftList: bigint[];
-    isSuccessful: boolean;
-    timestamp: bigint;
-  };
+  export type TamingAttemptStructOutput = [
+    user: string,
+    nft: string,
+    tameScale: bigint
+  ] & { user: string; nft: string; tameScale: bigint };
 }
 
 export interface PetTamingInterface extends Interface {
   getFunction(
     nameOrSignature:
+      | "attempts"
+      | "getAllAttempts"
       | "getLatestAttempt"
-      | "getUserAttempts"
       | "recordTamingAttempt"
-      | "userAttempts"
   ): FunctionFragment;
 
   getEvent(nameOrSignatureOrTopic: "TamingAttemptRecorded"): EventFragment;
 
   encodeFunctionData(
-    functionFragment: "getLatestAttempt",
+    functionFragment: "attempts",
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "getUserAttempts",
-    values: [BigNumberish]
+    functionFragment: "getAllAttempts",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "getLatestAttempt",
+    values?: undefined
   ): string;
   encodeFunctionData(
     functionFragment: "recordTamingAttempt",
-    values: [BigNumberish, BigNumberish, BigNumberish, BigNumberish[], boolean]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "userAttempts",
-    values: [BigNumberish, BigNumberish]
+    values: [string, string, BigNumberish]
   ): string;
 
+  decodeFunctionResult(functionFragment: "attempts", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getAllAttempts",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "getLatestAttempt",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "getUserAttempts",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "recordTamingAttempt",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "userAttempts",
     data: BytesLike
   ): Result;
 }
 
 export namespace TamingAttemptRecordedEvent {
-  export type InputTuple = [
-    userId: BigNumberish,
-    targetPetId: BigNumberish,
-    successRate: BigNumberish,
-    isSuccessful: boolean,
-    timestamp: BigNumberish
-  ];
-  export type OutputTuple = [
-    userId: bigint,
-    targetPetId: bigint,
-    successRate: bigint,
-    isSuccessful: boolean,
-    timestamp: bigint
-  ];
+  export type InputTuple = [user: string, nft: string, tameScale: BigNumberish];
+  export type OutputTuple = [user: string, nft: string, tameScale: bigint];
   export interface OutputObject {
-    userId: bigint;
-    targetPetId: bigint;
-    successRate: bigint;
-    isSuccessful: boolean;
-    timestamp: bigint;
+    user: string;
+    nft: string;
+    tameScale: bigint;
   }
   export type Event = TypedContractEvent<InputTuple, OutputTuple, OutputObject>;
   export type Filter = TypedDeferredTopicFilter<Event>;
@@ -166,42 +136,34 @@ export interface PetTaming extends BaseContract {
     event?: TCEvent
   ): Promise<this>;
 
-  getLatestAttempt: TypedContractMethod<
-    [_userId: BigNumberish],
-    [PetTaming.ReadableTamingAttemptStructOutput],
+  attempts: TypedContractMethod<
+    [arg0: BigNumberish],
+    [
+      [string, string, bigint] & {
+        user: string;
+        nft: string;
+        tameScale: bigint;
+      }
+    ],
     "view"
   >;
 
-  getUserAttempts: TypedContractMethod<
-    [_userId: BigNumberish],
-    [PetTaming.ReadableTamingAttemptStructOutput[]],
+  getAllAttempts: TypedContractMethod<
+    [],
+    [PetTaming.TamingAttemptStructOutput[]],
+    "view"
+  >;
+
+  getLatestAttempt: TypedContractMethod<
+    [],
+    [PetTaming.TamingAttemptStructOutput],
     "view"
   >;
 
   recordTamingAttempt: TypedContractMethod<
-    [
-      _userId: BigNumberish,
-      _targetPetId: BigNumberish,
-      _successRate: BigNumberish,
-      _usedNftIds: BigNumberish[],
-      _isSuccessful: boolean
-    ],
+    [_user: string, _nft: string, _tameScale: BigNumberish],
     [void],
     "nonpayable"
-  >;
-
-  userAttempts: TypedContractMethod<
-    [arg0: BigNumberish, arg1: BigNumberish],
-    [
-      [bigint, bigint, bigint, boolean, bigint] & {
-        userId: bigint;
-        targetPetId: bigint;
-        successRate: bigint;
-        isSuccessful: boolean;
-        timestamp: bigint;
-      }
-    ],
-    "view"
   >;
 
   getFunction<T extends ContractMethod = ContractMethod>(
@@ -209,46 +171,30 @@ export interface PetTaming extends BaseContract {
   ): T;
 
   getFunction(
-    nameOrSignature: "getLatestAttempt"
+    nameOrSignature: "attempts"
   ): TypedContractMethod<
-    [_userId: BigNumberish],
-    [PetTaming.ReadableTamingAttemptStructOutput],
-    "view"
-  >;
-  getFunction(
-    nameOrSignature: "getUserAttempts"
-  ): TypedContractMethod<
-    [_userId: BigNumberish],
-    [PetTaming.ReadableTamingAttemptStructOutput[]],
-    "view"
-  >;
-  getFunction(
-    nameOrSignature: "recordTamingAttempt"
-  ): TypedContractMethod<
+    [arg0: BigNumberish],
     [
-      _userId: BigNumberish,
-      _targetPetId: BigNumberish,
-      _successRate: BigNumberish,
-      _usedNftIds: BigNumberish[],
-      _isSuccessful: boolean
-    ],
-    [void],
-    "nonpayable"
-  >;
-  getFunction(
-    nameOrSignature: "userAttempts"
-  ): TypedContractMethod<
-    [arg0: BigNumberish, arg1: BigNumberish],
-    [
-      [bigint, bigint, bigint, boolean, bigint] & {
-        userId: bigint;
-        targetPetId: bigint;
-        successRate: bigint;
-        isSuccessful: boolean;
-        timestamp: bigint;
+      [string, string, bigint] & {
+        user: string;
+        nft: string;
+        tameScale: bigint;
       }
     ],
     "view"
+  >;
+  getFunction(
+    nameOrSignature: "getAllAttempts"
+  ): TypedContractMethod<[], [PetTaming.TamingAttemptStructOutput[]], "view">;
+  getFunction(
+    nameOrSignature: "getLatestAttempt"
+  ): TypedContractMethod<[], [PetTaming.TamingAttemptStructOutput], "view">;
+  getFunction(
+    nameOrSignature: "recordTamingAttempt"
+  ): TypedContractMethod<
+    [_user: string, _nft: string, _tameScale: BigNumberish],
+    [void],
+    "nonpayable"
   >;
 
   getEvent(
@@ -260,7 +206,7 @@ export interface PetTaming extends BaseContract {
   >;
 
   filters: {
-    "TamingAttemptRecorded(uint256,uint256,uint256,bool,uint256)": TypedContractEvent<
+    "TamingAttemptRecorded(string,string,uint8)": TypedContractEvent<
       TamingAttemptRecordedEvent.InputTuple,
       TamingAttemptRecordedEvent.OutputTuple,
       TamingAttemptRecordedEvent.OutputObject
