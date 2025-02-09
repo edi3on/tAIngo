@@ -37,7 +37,7 @@ cd tsServer/smart-contracts
 yarn install
 cp .env.example .env
 
-##Fill in your .env values
+## Fill in your .env values
 yarn deploy arbitrumSepolia  
 
 2. Start the Python server:
